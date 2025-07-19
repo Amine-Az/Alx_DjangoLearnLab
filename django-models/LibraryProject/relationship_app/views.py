@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
 from .forms import BookForm  # You’ll create this form for book add/edit
-
+from .models import Library
 from .models import Book, Library
 
 
@@ -21,6 +21,11 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
+
+def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books'] = self.object.book_set.all()
+        return context
 
 
 def register(request):
