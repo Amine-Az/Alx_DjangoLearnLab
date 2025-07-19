@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 from .views import admin_view, librarian_view, member_view
+from .views import list_books, LibraryDetailView
 
 urlpatterns = [
     path('books/', views.list_books, name='list_books'),
@@ -17,4 +18,6 @@ urlpatterns = [
     path('member-view/', member_view, name='member_view'),
     path('library/<int:pk>/detail/', views.library_detail_function, name='library_fbv_detail'),  # FBV
     path('library/<int:pk>/view/', views.LibraryDetailView.as_view(), name='library_cbv_detail'),  # CBV
+    path('libraries/', list_books, name='library_list'),
+    path('library/<int:pk>/view/', LibraryDetailView.as_view(), name='library_cbv_detail'),
 ]
